@@ -39,53 +39,38 @@ selected_movie = st.selectbox(
     movie_list,placeholder="Avatar"
 )
 
-def download( name ):
-    page = requests.get(f"https://mkvcinemas.cat/?s={name}")
-    soup = BeautifulSoup(page.content,"html.parser")
-    row = soup.find("div",class_=["movies-list","movies-list-full"])
-    col = row.find_all("div",class_="ml-item")
-    handle = True
-    if len(col) == 0 :
-        return (f"https://www.imdb.com/find/?q={name}")
-        handle=False
-        
-    anchor = col[0].find("a")
-    if handle :
-        return anchor["href"]
-    
-def Call(value) :
-    webbrowser.open_new_tab(value)
+
 
 if st.button('Show Recommendation'):
     recommended_movie_names,recommended_movie_posters = recommend(selected_movie)
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.text(recommended_movie_names[0])
-        links = download(recommended_movie_names[0])
+       
         st.image(recommended_movie_posters[0])
-        st.link_button("Download",url=links)
+       
     with col2:
         st.text(recommended_movie_names[1])
-        links = download(recommended_movie_names[1])
+       
         st.image(recommended_movie_posters[1])
-        st.link_button("Download",url=links)
+        
 
     with col3:
         st.text(recommended_movie_names[2])
-        links = download(recommended_movie_names[2])
+       
         st.image(recommended_movie_posters[2])
-        st.link_button("Download",url=links)
+        
         
     with col4:
         st.text(recommended_movie_names[3])
-        links = download(recommended_movie_names[3])
+        
         st.image(recommended_movie_posters[3])
-        st.link_button("Download",url=links)
+       
     with col5:
         st.text(recommended_movie_names[4])
-        links = download(recommended_movie_names[4])
+       
         st.image(recommended_movie_posters[4])
-        st.link_button("Download",url=links)
+        
 
 
 
